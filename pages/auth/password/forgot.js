@@ -4,6 +4,8 @@ import { showSuccessMessage, showErrorMessage } from '../../../helpers/alerts';
 import { API } from '../../../config';
 import Router from 'next/router';
 import Layout from '../../../components/Layout';
+import Footer from '../../footer/footer';
+import Search from '../../../components/search/Search';
 
 const ForgotPassword = () => {
     const [state, setState] = useState({
@@ -59,7 +61,9 @@ const ForgotPassword = () => {
     );
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h1>Forgot Password</h1>
@@ -70,6 +74,8 @@ const ForgotPassword = () => {
                 </div>
             </div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

@@ -5,12 +5,14 @@ import axios from 'axios';
 import { showSuccessMessage, showErrorMessage } from '../helpers/alerts';
 import { API } from '../config';
 import { isAuth } from '../helpers/auth';
+import Footer from './footer/footer';
+import Search from '../components/search/Search';
 
 const Register = () => {
     const [state, setState] = useState({
-        name: 'Ryan',
-        email: 'ryan@gmail.com',
-        password: 'rrrrrr',
+        name: '',
+        email: '',
+        password: '',
         error: '',
         success: '',
         buttonText: 'Register',
@@ -157,7 +159,7 @@ const Register = () => {
             </div>
 
             <div className="form-group">
-                <label className="text-muted ml-4">Category</label>
+                <label className="text-muted ml-4">Choose favorite Topics</label>
                 <ul style={{ maxHeight: '100px', overflowY: 'scroll' }}>{showCategories()}</ul>
             </div>
 
@@ -168,7 +170,9 @@ const Register = () => {
     );
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="col-md-6 offset-md-3">
                 <h1>Register</h1>
                 <br />
@@ -177,6 +181,8 @@ const Register = () => {
                 {registerForm()}
             </div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

@@ -6,6 +6,9 @@ import withUser from '../../withUser';
 import { getCookie, isAuth } from '../../../helpers/auth';
 import { API } from '../../../config';
 import { showSuccessMessage, showErrorMessage } from '../../../helpers/alerts';
+import Footer from '../../footer/footer';
+import Search from '../../../components/search/Search';
+
 
 const Update = ({ oldLink, token }) => {
     // state
@@ -193,7 +196,9 @@ const Update = ({ oldLink, token }) => {
     );
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="row">
                 <div className="col-md-12">
                     <h1>Update Link/URL</h1>
@@ -222,6 +227,8 @@ const Update = ({ oldLink, token }) => {
                 </div>
             </div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

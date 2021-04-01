@@ -8,6 +8,8 @@ import { API } from '../../../config';
 import InfiniteScroll from 'react-infinite-scroller';
 import withAdmin from '../../withAdmin';
 import { getCookie } from '../../../helpers/auth';
+import Footer from '../../footer/footer';
+import Search from '../../../components/search/Search';
 
 const Links = ({ token, links, totalLinks, linksLimit, linkSkip }) => {
     const [allLinks, setAllLinks] = useState(links);
@@ -51,7 +53,8 @@ const Links = ({ token, links, totalLinks, linksLimit, linkSkip }) => {
                 </div>
                 <div className="col-md-4 pt-2">
                     <span className="pull-right">
-                        {moment(l.createdAt).fromNow()} by {l.postedBy.name}
+                        {moment(l.createdAt).fromNow()} 
+                        {/* by {l.postedBy.name} */}
                     </span>
                     <br />
                     <span className="badge text-secondary pull-right">{l.clicks} clicks</span>
@@ -100,7 +103,9 @@ const Links = ({ token, links, totalLinks, linksLimit, linkSkip }) => {
     };
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="row">
                 <div className="col-md-12">
                     <h1 className="display-4 font-weight-bold">All Links</h1>
@@ -119,6 +124,8 @@ const Links = ({ token, links, totalLinks, linksLimit, linkSkip }) => {
                 </div>
             </InfiniteScroll>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

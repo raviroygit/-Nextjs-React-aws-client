@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../../../components/Layout';
 import Router from 'next/router';
 import axios from 'axios';
@@ -6,6 +6,8 @@ import { showSuccessMessage, showErrorMessage } from '../../../helpers/alerts';
 import { API } from '../../../config';
 import { isAuth, updateUser } from '../../../helpers/auth';
 import withUser from '../../withUser';
+import Footer from '../../footer/footer';
+import Search from '../../../components/search/Search';
 
 const Profile = ({ user, token }) => {
     const [state, setState] = useState({
@@ -143,7 +145,9 @@ const Profile = ({ user, token }) => {
     );
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="col-md-6 offset-md-3">
                 <h1>Update Profile</h1>
                 <br />
@@ -152,6 +156,8 @@ const Profile = ({ user, token }) => {
                 {updateForm()}
             </div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

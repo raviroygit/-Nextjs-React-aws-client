@@ -5,6 +5,8 @@ import { API } from '../../../../config';
 import Router, { withRouter } from 'next/router';
 import jwt from 'jsonwebtoken';
 import Layout from '../../../../components/Layout';
+import Footer from '../../../footer/footer';
+import Search from '../../../../components/search/Search';
 
 const ResetPassword = ({ router }) => {
     const [state, setState] = useState({
@@ -69,7 +71,9 @@ const ResetPassword = ({ router }) => {
     );
 
     return (
-        <Layout>
+       <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h1>Hi {name}, Ready to Reset Password?</h1>
@@ -80,6 +84,7 @@ const ResetPassword = ({ router }) => {
                 </div>
             </div>
         </Layout>
+       </React.Fragment>
     );
 };
 

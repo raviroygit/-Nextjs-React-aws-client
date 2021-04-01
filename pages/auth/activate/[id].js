@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import { showSuccessMessage, showErrorMessage } from '../../../helpers/alerts';
 import { API } from '../../../config';
 import { withRouter } from 'next/router';
 import Layout from '../../../components/Layout';
+import Footer from '../../footer/footer';
+import Search from '../../../components/search/Search';
 
 const ActivateAccount = ({ router }) => {
     const [state, setState] = useState({
@@ -39,7 +41,9 @@ const ActivateAccount = ({ router }) => {
     };
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h1>G'day {name}, Ready to activate your account?</h1>
@@ -52,6 +56,8 @@ const ActivateAccount = ({ router }) => {
                 </div>
             </div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

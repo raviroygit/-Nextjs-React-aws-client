@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-
+import {withRouter} from 'next/router';
 import axios from 'axios';
 import Resizer from 'react-image-file-resizer';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -9,9 +9,14 @@ import { showSuccessMessage, showErrorMessage } from '../../../helpers/alerts';
 import Layout from '../../../components/Layout';
 import withAdmin from '../../withAdmin';
 import 'react-quill/dist/quill.bubble.css';
+import {QuillFormats,QuillModules} from '../../../helpers/quill';
+import Footer from '../../footer/footer';
+import Search from '../../../components/search/Search';
+import {handleResponse} from '../../../helpers/auth';
 
 
-const Create = ({ user, token }) => {
+
+const Create = ({ user, token ,router}) => {
     const [state, setState] = useState({
         name: '',
         content: '',
@@ -73,6 +78,7 @@ const Create = ({ user, token }) => {
                 }
             );
             console.log('CATEGORY CREATE RESPONSE', response);
+            handleResponse(response);
             setImageUploadButtonName('Upload image');
             setState({
                 ...state,
@@ -98,6 +104,8 @@ const Create = ({ user, token }) => {
             <div className="form-group">
                 <label className="text-muted">Content</label>
                 <ReactQuill
+                    modules={QuillModules}
+                    formats={QuillFormats}
                     value={content}
                     onChange={handleContent}
                     placeholder="Write something..."
@@ -118,7 +126,9 @@ const Create = ({ user, token }) => {
     );
 
     return (
-        <Layout>
+       <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="row">
                 <div className="col-md-6 offset-md-3">
                     <h1>Create category</h1>
@@ -129,6 +139,8 @@ const Create = ({ user, token }) => {
                 </div>
             </div>
         </Layout>
+        <Footer/>
+       </React.Fragment>
     );
 };
 

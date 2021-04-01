@@ -5,10 +5,15 @@ import Head from 'next/head';
 import axios from 'axios';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
-import { API, APP_NAME } from '../../config';
+import { API, APP_NAME , DOMAIN,FB_APP_ID} from '../../config';
 import InfiniteScroll from 'react-infinite-scroller';
+import Footer from '../footer/footer';
+import LinksSearch from '../../components/search/LinkSearch'
+import { withRouter } from 'next/router';
 
-const Links = ({ query, category, links, totalLinks, linksLimit, linkSkip }) => {
+
+
+const Links = ({ query, category, links, totalLinks, linksLimit, linkSkip,router }) => {
     const [allLinks, setAllLinks] = useState(links);
     const [limit, setLimit] = useState(linksLimit);
     const [skip, setSkip] = useState(0);
@@ -22,11 +27,18 @@ const Links = ({ query, category, links, totalLinks, linksLimit, linkSkip }) => 
             <title>
                 {category.name} | {APP_NAME}
             </title>
+           
+            <link rel="canonical" href={`${DOMAIN}${router.pathname}`} />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={`${DOMAIN}${router.pathname}`} />
+            <meta property="og:site_name" content={`${APP_NAME}`} />
             <meta name="description" content={stripHTML(category.content.substring(0, 160))} />
             <meta property="og:title" content={category.name} />
             <meta property="og:description" content={stripHTML(category.content.substring(0, 160))} />
             <meta property="og:image" content={category.image.url} />
             <meta property="og:image:secure_url" content={category.image.url} />
+            <meta property="fb:app_id" content={`${FB_APP_ID}`} />
+
         </Head>
     );
 
@@ -64,7 +76,8 @@ const Links = ({ query, category, links, totalLinks, linksLimit, linkSkip }) => 
 
                 <div className="col-md-4 pt-2">
                     <span className="pull-right">
-                        {moment(l.createdAt).fromNow()} by {l.postedBy.name}
+                        {moment(l.createdAt).fromNow()}
+                         {/* by {l.postedBy.name} */}
                     </span>
                 </div>
 
@@ -127,6 +140,8 @@ const Links = ({ query, category, links, totalLinks, linksLimit, linkSkip }) => 
         <Fragment>
             {head()}
             <Layout>
+                <LinksSearch/>
+                {JSON.stringify(totalLinks)}
                 <div className="row">
                     <div className="col-md-8">
                         <h1 className="display-4 font-weight-bold">{category.name} - URL/Links</h1>
@@ -145,7 +160,7 @@ const Links = ({ query, category, links, totalLinks, linksLimit, linkSkip }) => 
                     pageStart={0}
                     loadMore={loadMore}
                     hasMore={size > 0 && size >= limit}
-                    loader={<img key={0} src="/static/images/loading.gif" alt="loading" />}
+                    loader={<img style={{height:'150px',width:'200px'}} key={0} src="/static/images/loading.gif" alt="loading" />}
                 >
                     <div className="row">
                         <div className="col-md-8">{listOfLinks()}</div>
@@ -156,13 +171,14 @@ const Links = ({ query, category, links, totalLinks, linksLimit, linkSkip }) => 
                     </div>
                 </InfiniteScroll>
             </Layout>
+            <Footer/>
         </Fragment>
     );
 };
 
 Links.getInitialProps = async ({ query, req }) => {
     let skip = 0;
-    let limit = 2;
+    let limit = 10;
 
     const response = await axios.post(`${API}/category/${query.slug}`, { skip, limit });
     return {
@@ -175,4 +191,4 @@ Links.getInitialProps = async ({ query, req }) => {
     };
 };
 
-export default Links;
+export default withRouter(Links);

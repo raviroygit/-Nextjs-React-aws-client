@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { showSuccessMessage, showErrorMessage } from '../../../helpers/alerts';
 import Layout from '../../../components/Layout';
 import withAdmin from '../../withAdmin';
+import Footer from '../../footer/footer';
+import Search from '../../../components/search/Search';
 
 const Read = ({ user, token }) => {
     const [state, setState] = useState({
@@ -83,7 +85,9 @@ const Read = ({ user, token }) => {
         ));
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="row">
                 <div className="col">
                     <h1>List of categories</h1>
@@ -93,6 +97,8 @@ const Read = ({ user, token }) => {
 
             <div className="row">{listCategories()}</div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

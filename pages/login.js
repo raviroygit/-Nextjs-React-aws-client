@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -6,12 +6,14 @@ import axios from 'axios';
 import { showSuccessMessage, showErrorMessage } from '../helpers/alerts';
 import { API } from '../config';
 import { authenticate, isAuth } from '../helpers/auth';
+import Footer from './footer/footer';
+import Search from '../components/search/Search';
 
 
 const Login = () => {
     const [state, setState] = useState({
-        email: 'ravi93448@gmail.com',
-        password: 'rrrrrr',
+        email: '',
+        password: "",
         error: '',
         success: '',
         buttonText: 'Login'
@@ -75,7 +77,9 @@ const Login = () => {
     );
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="col-md-6 offset-md-3">
                 <h1>Login</h1>
                 <br />
@@ -87,6 +91,8 @@ const Login = () => {
                 </Link>
             </div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

@@ -1,10 +1,13 @@
 // imports
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../../../components/Layout';
 import axios from 'axios';
 import { getCookie, isAuth } from '../../../helpers/auth';
 import { API } from '../../../config';
 import { showSuccessMessage, showErrorMessage } from '../../../helpers/alerts';
+import Footer from '../../footer/footer';
+import Search from '../../../components/search/Search';
+
 
 const Create = ({ token }) => {
     // state
@@ -188,7 +191,9 @@ const Create = ({ token }) => {
     );
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <div className="row">
                 <div className="col-md-12">
                     <h1>Submit Link/URL</h1>
@@ -217,6 +222,8 @@ const Create = ({ token }) => {
                 </div>
             </div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 

@@ -1,9 +1,12 @@
 import Layout from '../../components/Layout';
 import withAdmin from '../withAdmin';
 import Link from 'next/link';
-
+import Footer from '../footer/footer';
+import Search from '../../components/search/Search';
 const Admin = ({ user }) => (
-    <Layout>
+    <React.Fragment>
+        <Layout>
+            <Search/>
         <h1>Admin Dashboard</h1>
         <br />
         <div className="row">
@@ -19,9 +22,15 @@ const Admin = ({ user }) => (
                             <a className="nav-link">All categories</a>
                         </Link>
                     </li>
+                 
                     <li className="nav-item">
                         <Link href="/admin/link/read">
                             <a className="nav-link">All Links</a>
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link href="/admin/blog/create">
+                            <a className="nav-link">Create Blog</a>
                         </Link>
                     </li>
                 </ul>
@@ -29,6 +38,7 @@ const Admin = ({ user }) => (
             <div className="col-md-8"></div>
         </div>
     </Layout>
+    </React.Fragment>
 );
 
 export default withAdmin(Admin);

@@ -6,6 +6,9 @@ import moment from 'moment';
 import { API } from '../../config';
 import { getCookie } from '../../helpers/auth';
 import withUser from '../withUser';
+import Footer from '../footer/footer';
+import Search from '../../components/search/Search';
+
 
 const User = ({ user, userLinks, token }) => {
     const confirmDelete = (e, id) => {
@@ -72,7 +75,9 @@ const User = ({ user, userLinks, token }) => {
         ));
 
     return (
-        <Layout>
+        <React.Fragment>
+            <Layout>
+                <Search/>
             <h1>
                 {user.name}'s dashboard <span className="text-danger">/{user.role}</span>
             </h1>
@@ -101,6 +106,8 @@ const User = ({ user, userLinks, token }) => {
                 </div>
             </div>
         </Layout>
+        <Footer/>
+        </React.Fragment>
     );
 };
 
